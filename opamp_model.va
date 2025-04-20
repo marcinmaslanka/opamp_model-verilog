@@ -1,0 +1,22 @@
+`include "constants.vams"
+`include "discipline.h"
+
+module opamp(vout, vinp, vinn, vdd, vss);
+    inout vout, vinp, vinn, vdd, vss;
+    electrical vout, vinp, vinn, vdd, vss;
+
+    // Parameters
+    parameter real A0  = 1e5;       // Open-loop gain
+    parameter real GBW = 10e6;      // Gain-bandwidth product [Hz]
+    parameter real Vhi = 1.5;       // Positive rail limit
+    parameter real Vlo = -1.5;      // Negative rail limit
+
+    real tau;    // Time constant for dominant pole
+    real vdiff;  // Differential input voltage
+    real vout_target; // Output before limiting
+
+    analog begin
+        
+        V(vout) <+ A0 * V(vinp, vinn);
+end
+endmodule
